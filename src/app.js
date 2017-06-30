@@ -16,6 +16,25 @@ const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
 const FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
 const FB_TEXT_LIMIT = 640;
 
+// App Secret can be retrieved from the App Dashboard
+const APP_SECRET = "77d6c30390b30652169df4f4fe39196b";
+
+
+// Arbitrary value used to validate a webhook
+const VALIDATION_TOKEN = FB_VERIFY_TOKEN;
+
+
+// Generate a page access token for your page from the App Dashboard
+const PAGE_ACCESS_TOKEN = FB_PAGE_ACCESS_TOKEN;
+
+const JANIS_API_KEY = "YDDhNdA5jZWT9AHu5Bwh3J5dOe1ODpd1ICk6jSE5fPL";
+const JANIS_CLIENT_KEY = "70DSUenF9X5I45Y7K7R5cT2LOvHKafG9e5Klbk9BeUj";
+
+var janis = require('janis')(JANIS_API_KEY, JANIS_CLIENT_KEY,
+        {platform:'messenger',
+        PAGE_ACCESS_TOKEN
+    });
+
 const FACEBOOK_LOCATION = "FACEBOOK_LOCATION";
 const FACEBOOK_WELCOME = "FACEBOOK_WELCOME";
 
