@@ -546,13 +546,13 @@ app.post('/webhook/', (req, res) => {
                                                 data: l.payload.coordinates
                                             }
                                         };
-
                                         facebookBot.processFacebookEvent(locationEvent);
                                     });
                                 }
                             }
-
-                            facebookBot.processMessageEvent(event);
+                                janis.hopIn(data, function(isPaused) {
+                                        if (isPaused) { return };
+                                facebookBot.processMessageEvent(event);
                         } else if (event.postback && event.postback.payload) {
                             if (event.postback.payload === "FACEBOOK_WELCOME") {
                                 facebookBot.processFacebookEvent(event);
