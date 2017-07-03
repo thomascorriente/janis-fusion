@@ -305,7 +305,7 @@ class FacebookBot {
                         source: "facebook"
                     }
                 });
-            this.doApiAiRequest(apiaiRequest, sender);
+            this.doApiAiRequest(apiaiRequest, sender, event);
         }
     }
 
@@ -331,17 +331,33 @@ class FacebookBot {
                     }
                 });
 
-            this.doApiAiRequest(apiaiRequest, sender);
+            this.doApiAiRequest(apiaiRequest, sender, event);
         }
     }
 
-    doApiAiRequest(apiaiRequest, sender) {
+    doApiAiRequest(apiaiRequest, sender, event) {
         apiaiRequest.on('response', (response) => {
             if (this.isDefined(response.result) && this.isDefined(response.result.fulfillment)) {
                 let responseText = response.result.fulfillment.speech;
                 let responseData = response.result.fulfillment.data;
                 let responseMessages = response.result.fulfillment.messages;
 
+                let intentapi = response.result.metadata.intentName;
+
+                if (intentapi == "Ayuda") {
+                        janis.assistanceRequested(event);
+                }else{
+                        if (this.isDefined(responseData) && this.isDefined(responseData.facebook)) {
+                                let facebookResponseData = responseData.facebook;
+                                this.doDataResponse(sender, facebookResponseData);
+                        } else if (this.isDefined(responseMessages) && responseMessages.length > 0) {
+                                this.doRichContentResponse(sender, responseMessages);
+                        }
+                        else if (this.isDefined(responseText)) {
+                                this.doTextResponse(sender, responseText);
+                        }
+                }
+                /*
                 if (this.isDefined(responseData) && this.isDefined(responseData.facebook)) {
                     let facebookResponseData = responseData.facebook;
                     this.doDataResponse(sender, facebookResponseData);
@@ -351,7 +367,7 @@ class FacebookBot {
                 else if (this.isDefined(responseText)) {
                     this.doTextResponse(sender, responseText);
                 }
-
+                */
             }
         });
 
