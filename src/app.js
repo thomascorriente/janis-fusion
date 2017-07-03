@@ -552,7 +552,9 @@ app.post('/webhook/', (req, res) => {
                             }
                                 janis.hopIn(data, function(isPaused) {
                                         if (isPaused) { return };
-                                facebookBot.processMessageEvent(event);
+                                        // Process incoming message
+                                        facebookBot.processMessageEvent(event);
+                                });                                
                         } else if (event.postback && event.postback.payload) {
                             if (event.postback.payload === "FACEBOOK_WELCOME") {
                                 facebookBot.processFacebookEvent(event);
